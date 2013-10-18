@@ -39,7 +39,7 @@ html, body {
   bottom: 0;
   right: 0;
   margin: 0 auto 0 auto;
-  width: 10em;
+  max-width: 20em;
   height: 100%;
   z-index: 10;
 }
