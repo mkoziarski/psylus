@@ -32,7 +32,7 @@ html, body {
   flex: 1 0 100%;
 }
 
-#content {
+#content-wrap {
   position: absolute;
   top: 0;
   left: 0;
@@ -44,7 +44,7 @@ html, body {
   z-index: 10;
 }
 
-#content p {
+#content-wrap #content {
   position: absolute;
   top: 50%;
 }
