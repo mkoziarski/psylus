@@ -62,5 +62,6 @@ h2 {
   font-size: 2em;
   line-height: 1;
   text-transform: uppercase;
+  font-style: italic;
   letter-spacing: 0.6em;
 }
