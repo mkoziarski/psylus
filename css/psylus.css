@@ -43,10 +43,11 @@ html, body {
   z-index: 10;
 }
 
-#content-wrap #content {
+#content-wrap #content-start {
   position: absolute;
   top: 50%;
   margin-top: -4.5em;
+  width: 100%;
   text-align: center;
 }
 
@@ -64,4 +65,21 @@ h2 {
   text-transform: uppercase;
   font-style: italic;
   letter-spacing: 0.6em;
+}
+
+#content-wrap #content {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+#content p {
+  font-size: 1.1em;
+  margin-bottom: 1.8em;
+}
+
+#content p span {
+  font-size: 0.73em;
+  text-transform: uppercase;
 }
