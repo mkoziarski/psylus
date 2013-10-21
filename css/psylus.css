@@ -84,3 +84,7 @@ h2 {
   font-size: 0.73em;
   text-transform: uppercase;
 }
+
+img {
+  width: 16em;
+}
