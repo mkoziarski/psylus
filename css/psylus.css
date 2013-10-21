@@ -21,7 +21,7 @@ html, body {
   right: 0px;
   bottom: 0px;
   left: 0px;
-  background: #ddd;
+  /* background: #ddd; */
   overflow: hidden; /* ??? */
   display: flex;
   justify-content: center;
@@ -55,6 +55,7 @@ h1 {
   margin: 0;
   font-size: 1em;
   text-transform: uppercase;
+  font-weight: normal;
   letter-spacing: 1em;
 }
 
