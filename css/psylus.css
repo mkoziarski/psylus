@@ -77,14 +77,22 @@ h2 {
 
 #content p {
   font-size: 1.1em;
-  margin-bottom: 1.8em;
+  margin-bottom: 3em;
 }
 
 #content p span {
+  display: inline-block;
+  margin-top: 1.8em;
   font-size: 0.73em;
   text-transform: uppercase;
 }
 
+#content p span:first-child {
+  margin-top: 0;
+}
+
 img {
+  display: inline-block;
   width: 16em;
+  margin: 0.5em 0.5em 0.5em 0.5em;
 }
