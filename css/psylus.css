@@ -85,6 +85,7 @@ h2 {
   margin-top: 1.8em;
   font-size: 0.73em;
   text-transform: uppercase;
+  letter-spacing: 0.5em;
 }
 
 #content p span:first-child {
