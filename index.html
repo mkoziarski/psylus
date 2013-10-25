@@ -78,14 +78,17 @@
       preferFlash: false,
       onready: function() {
         console.log("sm2 is ready to play");
+        scStream();
       }
     });
     
-    SC.initialize({ client_id: "f5f3525fd7239e5789573333803acdc8" });
-    
-    SC.stream("/tracks/78458816", function(sound) {
-      sound.play();
-    });
+    function scStream() {
+      SC.initialize({ client_id: "f5f3525fd7239e5789573333803acdc8" });
+      
+      SC.stream("/tracks/78458816", function(sound) {
+        sound.play();
+      });
+    }
   </script>
 </body>
 </html>
