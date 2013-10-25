@@ -70,6 +70,23 @@
       </p>
     </div>
   </div>
+  <script src="js/soundmanager2-nodebug-jsmin.js"></script>
+  <script src="http://connect.soundcloud.com/sdk.js"></script>
+  <script>
+    soundManager.setup({
+      url: "swf",
+      preferFlash: false,
+      onready: function() {
+        console.log("sm2 is ready to play");
+      }
+    });
+    
+    SC.initialize({ client_id: "f5f3525fd7239e5789573333803acdc8" });
+    
+    SC.stream("/tracks/78458816", function(sound) {
+      sound.play();
+    });
+  </script>
 </body>
 </html>
 
