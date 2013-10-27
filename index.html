@@ -98,7 +98,8 @@
       SC.stream("/tracks/78458816", function(sound) {
         sound.play({
           whileplaying: function() {
-            console.log(this.position);
+            console.log(this.position / this.duration);
+            trackProgress(this.position / this.duration);
           }
         });
       });
