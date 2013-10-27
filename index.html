@@ -20,6 +20,9 @@
     <div id="content-start">
       <h1>Psylus</h1>
       <h2>Into The Unknown</h2>
+      <div class="track">
+        <span class="progress"></span>
+      </div>
     </div>
     <div id="content">
       <p>
@@ -70,9 +73,16 @@
       </p>
     </div>
   </div>
+  <script src="js/jquery-1.10.2.min.js"></script>
   <script src="js/soundmanager2-nodebug-jsmin.js"></script>
   <script src="http://connect.soundcloud.com/sdk.js"></script>
   <script>
+    var trackBar = $("span.progress");
+    
+    function trackProgress(progress) {
+      trackBar.css("width", progress + "%");
+    }
+    
     soundManager.setup({
       url: "swf",
       preferFlash: false,
@@ -86,7 +96,11 @@
       SC.initialize({ client_id: "f5f3525fd7239e5789573333803acdc8" });
       
       SC.stream("/tracks/78458816", function(sound) {
-        sound.play();
+        sound.play({
+          whileplaying: function() {
+            console.log(this.position);
+          }
+        });
       });
     }
   </script>
