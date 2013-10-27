@@ -99,7 +99,7 @@
         sound.play({
           whileplaying: function() {
             console.log(this.position / this.duration);
-            trackProgress(this.position / this.duration);
+            trackProgress(100.0 * this.position / this.duration);
           }
         });
       });
