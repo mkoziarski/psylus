@@ -79,10 +79,18 @@
   <script src="http://connect.soundcloud.com/sdk.js"></script>
   <script>
     var trackBar = $("span.progress");
+    var trackTimeDisp = $("span.trackTime");
     var trackDuration = false;
     
-    function trackProgress(progress) {
-      trackBar.css("width", progress + "%");
+    function trackProgress(position, duration) {
+      var minutes = "" + Math.floor(position / 60);
+      var seconds = "" + (position % 60);
+      if (seconds.length < 2)
+        seconds = "0" + seconds;
+      if (minutes.length < 2)
+        minutes = "0" + minutes;
+      trackTimeDisp.text(minutes + ":" + seconds);
+      trackBar.css("width", (100.0 * position / duration) + "%");
     }
     
     soundManager.setup({
@@ -107,7 +115,7 @@
               console.log("track duration: " + duration);
               trackDuration = duration;
             }
-            trackProgress(100.0 * this.position / this.duration);
+            trackProgress(this.position, this.duration);
           }
         });
       });
