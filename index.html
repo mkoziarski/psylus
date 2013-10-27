@@ -22,6 +22,7 @@
       <h2>Into The Unknown</h2>
       <div class="track">
         <span class="progress"></span>
+        <span class="trackTime"></span>
       </div>
     </div>
     <div id="content">
@@ -97,8 +98,10 @@
       
       SC.stream("/tracks/78458816", function(sound) {
         sound.play({
+          onplay: function() {
+            console.log("track duration: " + this.duration);
+          },
           whileplaying: function() {
-            console.log(this.position / this.duration);
             trackProgress(100.0 * this.position / this.duration);
           }
         });
