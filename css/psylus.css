@@ -70,6 +70,7 @@ h2 {
 }
 
 div.track {
+  position: relative;
   margin: 4em auto 0 auto;
   border-bottom: 2px solid;
   max-width: 32em;
@@ -81,6 +82,15 @@ div.track span.progress {
   width: 0%;
   height: 2px;
   background: rgb(35, 181, 116);
+}
+
+div.track span.trackTime {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: -1.3em;
+  margin-left: -1.5em;
 }
 
 #content-wrap #content {
