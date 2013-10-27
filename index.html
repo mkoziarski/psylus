@@ -79,7 +79,7 @@
   <script src="http://connect.soundcloud.com/sdk.js"></script>
   <script>
     var trackBar = $("span.progress");
-    var trackLengthShown = false;
+    var trackDuration = false;
     
     function trackProgress(progress) {
       trackBar.css("width", progress + "%");
@@ -102,9 +102,10 @@
           onplay: function() {
           },
           whileplaying: function() {
-            if (!trackLengthShown) {
-              console.log("track duration: " + this.duration);
-              trackLengthShown = true;
+            duration = this.duration;
+            if (duration > trackDuration) {
+              console.log("track duration: " + duration);
+              trackDuration = duration;
             }
             trackProgress(100.0 * this.position / this.duration);
           }
