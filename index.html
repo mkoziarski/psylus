@@ -80,6 +80,7 @@
   <script>
     var trackBar = $("span.progress");
     var trackTimeDisp = $("span.trackTime");
+    var trackPosition = -1000;
     
     function trackProgress(position, duration) {
       var totalSecs = Math.floor(position / 1000);
@@ -112,7 +113,11 @@
           onplay: function() {
           },
           whileplaying: function() {
-            trackProgress(this.position, this.duration);
+            var pos = this.position;
+            if (pos > trackPosition + 1000) {
+              trackProgress(pos, this.duration);
+              trackPosition = pos - pos % 1000;
+            }
           }
         });
       });
