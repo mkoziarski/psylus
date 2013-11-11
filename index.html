@@ -87,6 +87,7 @@
       var trackBar = $("span.progress");
       var trackTimeDisp = $("span.trackTime");
       var trackPosition = -1000;
+      var playPauseBtn = $("button#playPause");
       
       var trackProgress = function(position, duration) {
         var totalSecs = Math.floor(position / 1000);
@@ -102,6 +103,10 @@
         trackBar.css("width", percentage + "%");
       };
       
+      var onPlay = function() {
+        playPauseBtn.text("s");
+      };
+      
       var onPlayProgress = function(position, duration) {
         if (position > trackPosition + 1000) {
           trackProgress(position, duration);
@@ -109,8 +114,19 @@
         }
       };
       
+      var onPause = function() {
+        playPauseBtn.text("p");
+      };
+      
+      var onStop = function() {
+        playPauseBtn.text("p");
+      };
+      
       return {
-        onPlayProgress: onPlayProgress
+        onPlay: onPlay,
+        onPlayProgress: onPlayProgress,
+        onPause: onPause,
+        onStop: onStop
       };
     })();
     
@@ -128,11 +144,13 @@
       
       SC.stream("/tracks/78458816", function(sound) {
         sound.play({
-          onplay: function() {
-          },
+          onplay: psylusPlayer.onPlay,
           whileplaying: function() {
             psylusPlayer.onPlayProgress(this.position, this.duration);
-          }
+          },
+          onpause: psylusPlayer.onPause,
+          onstop: psylusPlayer.onStop,
+          onfinish: psylusPlayer.onStop
         });
       });
     }
