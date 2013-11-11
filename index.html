@@ -87,7 +87,7 @@
       var sound = null;
       var trackBar = $("span.progress");
       var trackTimeDisp = $("span.trackTime");
-      var trackPosition = -1000;
+      var trackPosition = -1001;
       var playPauseBtn = $("button#playPause");
       
       var addSound = function(newSound) {
@@ -124,6 +124,10 @@
       };
       
       var onStop = function() {
+        trackPosition = -1001;
+        trackTimeDisp.text("");
+        trackTimeDisp.css("left", "0");
+        trackBar.css("width", "0");
         playPauseBtn.text("p");
       };
       
