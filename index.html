@@ -84,10 +84,15 @@
   <script src="http://connect.soundcloud.com/sdk.js"></script>
   <script>
     var psylusPlayer = (function() {
+      var sound = null;
       var trackBar = $("span.progress");
       var trackTimeDisp = $("span.trackTime");
       var trackPosition = -1000;
       var playPauseBtn = $("button#playPause");
+      
+      var addSound = function(newSound) {
+        sound = newSound;
+      };
       
       var trackProgress = function(position, duration) {
         var totalSecs = Math.floor(position / 1000);
@@ -122,7 +127,15 @@
         playPauseBtn.text("p");
       };
       
+      playPauseBtn.click(function() {
+        if (null === sound)
+          return;
+        if (sound.playState || sound.paused)
+          sound.togglePause();
+      });
+      
       return {
+        addSound: addSound
         onPlay: onPlay,
         onPlayProgress: onPlayProgress,
         onPause: onPause,
@@ -143,6 +156,7 @@
       SC.initialize({ client_id: "f5f3525fd7239e5789573333803acdc8" });
       
       SC.stream("/tracks/78458816", function(sound) {
+        psylusPlayer.addSound(sound);
         sound.play({
           onplay: psylusPlayer.onPlay,
           whileplaying: function() {
