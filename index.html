@@ -101,6 +101,13 @@
       trackBar.css("width", percentage + "%");
     }
     
+    function onPlayProgress(position, duration) {
+      if (position > trackPosition + 1000) {
+        trackProgress(position, duration);
+        trackPosition = position - position % 1000;
+      }
+    }
+    
     soundManager.setup({
       url: "swf",
       preferFlash: false,
@@ -118,11 +125,7 @@
           onplay: function() {
           },
           whileplaying: function() {
-            var pos = this.position;
-            if (pos > trackPosition + 1000) {
-              trackProgress(pos, this.duration);
-              trackPosition = pos - pos % 1000;
-            }
+            onPlayProgress(this.position, this.duration);
           }
         });
       });
