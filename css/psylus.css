@@ -1,3 +1,14 @@
+@font-face {
+  font-family: 'Psylus Icons';
+  src:url('../assets/Psylus Icons.eot');
+  src:url('../assets/Psylus Icons.eot?#iefix') format('embedded-opentype'),
+    url('../assets/Psylus Icons.ttf') format('truetype'),
+    url('../assets/Psylus Icons.woff') format('woff'),
+    url('../assets/Psylus Icons.svg#Psylus Icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html, body {
   font: normal 100% sans-serif;
   background: black;
@@ -93,6 +104,24 @@ div.track span.trackTime {
   left: 0;
   margin-top: -1.3em;
   margin-left: -1.44em;
+}
+
+ul.trackActions {
+  margin-top: 2.6em;
+  padding: 0;
+  font-family: 'Psylus Icons';
+}
+
+ul.trackActions li {
+  display: inline-block;
+  margin: 0 1em;
+}
+
+ul.trackActions button {
+  border: none;
+  padding: 0;
+  background: none;
+  color: rgb(35, 181, 116);
 }
 
 #content-wrap #content {
