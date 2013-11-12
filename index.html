@@ -90,7 +90,7 @@
       var trackPosition = -1001;
       var playPauseBtn = $("button#playPause");
       
-      var addSound = function(newSound) {
+      var updateSound = function(newSound) {
         sound = newSound;
       };
       
@@ -139,7 +139,7 @@
       });
       
       return {
-        addSound: addSound,
+        updateSound: updateSound,
         onPlay: onPlay,
         onPlayProgress: onPlayProgress,
         onPause: onPause,
@@ -160,7 +160,7 @@
       SC.initialize({ client_id: "f5f3525fd7239e5789573333803acdc8" });
       
       SC.stream("/tracks/78458816", function(sound) {
-        psylusPlayer.addSound(sound);
+        psylusPlayer.updateSound(sound);
         sound.play({
           onplay: psylusPlayer.onPlay,
           whileplaying: function() {
