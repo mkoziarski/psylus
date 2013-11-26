@@ -127,9 +127,19 @@
         trackPosition = -1001;
         trackTimeDisp.text("");
         trackTimeDisp.css("left", "0");
-        trackBar.css("width", "0");
+        trackBar.addClass("retract");
         playPauseBtn.text("p");
       };
+      
+      /* setup progress bar retract animation end handler */
+      (function() {
+        trackBar.get(0).addEventListener("animationend", function(event) {
+          if (event.animationName && "retract-progbar" == event.animationName) {
+            trackBar.css("width", "0");
+            trackBar.removeClass("retract");
+          }
+        }, false);
+      })();
       
       playPauseBtn.click(function() {
         if (null === sound)
