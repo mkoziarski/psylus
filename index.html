@@ -144,8 +144,11 @@
       playPauseBtn.click(function() {
         if (null === sound)
           return;
-        if (sound.playState || sound.paused)
+        if (sound.playState || sound.paused) {
           sound.togglePause();
+        } else {
+          sound.play();
+        }
       });
       
       return {
