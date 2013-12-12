@@ -84,15 +84,10 @@
   <script src="http://connect.soundcloud.com/sdk.js"></script>
   <script>
     var psylusPlayer = (function() {
-      var sound = null;
       var trackBar = $("span.progress");
       var trackTimeDisp = $("span.trackTime");
       var trackPosition = -1001;
       var playPauseBtn = $("button#playPause");
-      
-      var updateSound = function(newSound) {
-        sound = newSound;
-      };
       
       var trackProgress = function(position, duration) {
         var totalSecs = Math.floor(position / 1000);
@@ -141,22 +136,55 @@
         }, false);
       })();
       
+      /* UI event handling */
       playPauseBtn.click(function() {
+        soundProxy.onPlayButton();
+      });
+      
+      return {
+        onPlay: onPlay,
+        onPlayProgress: onPlayProgress,
+        onPause: onPause,
+        onStop: onStop
+      };
+    })();
+    
+    var soundProxy = (function() {
+      var sound = null;
+      
+      var updateSound = function(newSound) {
+        sound = newSound;
+      };
+      
+      var play = function() {
+        if (null === sound)
+          return;
+        sound.play({
+          onplay: psylusPlayer.onPlay,
+          whileplaying: function() {
+            psylusPlayer.onPlayProgress(this.position, this.duration);
+          },
+          onpause: psylusPlayer.onPause,
+          onresume: psylusPlayer.onPlay,
+          onstop: psylusPlayer.onStop,
+          onfinish: psylusPlayer.onStop
+        });
+      };
+      
+      var onPlayButton = function() {
         if (null === sound)
           return;
         if (sound.playState || sound.paused) {
           sound.togglePause();
         } else {
-          sound.play();
+          play();
         }
-      });
+      };
       
       return {
         updateSound: updateSound,
-        onPlay: onPlay,
-        onPlayProgress: onPlayProgress,
-        onPause: onPause,
-        onStop: onStop
+        play: play,
+        onPlayButton: onPlayButton
       };
     })();
     
@@ -173,17 +201,8 @@
       SC.initialize({ client_id: "f5f3525fd7239e5789573333803acdc8" });
       
       SC.stream("/tracks/78458816", function(sound) {
-        psylusPlayer.updateSound(sound);
-        sound.play({
-          onplay: psylusPlayer.onPlay,
-          whileplaying: function() {
-            psylusPlayer.onPlayProgress(this.position, this.duration);
-          },
-          onpause: psylusPlayer.onPause,
-          onresume: psylusPlayer.onPlay,
-          onstop: psylusPlayer.onStop,
-          onfinish: psylusPlayer.onStop
-        });
+        soundProxy.updateSound(sound);
+        soundProxy.play();
       });
     }
   </script>
