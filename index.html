@@ -25,9 +25,9 @@
         <span class="trackTime"></span>
       </div>
       <ul class="trackActions">
-        <li><button type="button" id="playPause">p</button></li>
-        <li><span id="extLinks">e</span></li>
-        <li><button type="button" id="download">d</button></li>
+        <li><button type="button" id="playPause">play</button></li>
+        <li><span id="extLinks">social</span></li>
+        <li><button type="button" id="download">download</button></li>
       </ul>
     </div>
     <div id="content">
@@ -109,7 +109,7 @@
       };
       
       var onPlay = function() {
-        playPauseBtn.text("s");
+        playPauseBtn.text("pause");
       };
       
       var onPlayProgress = function(position, duration) {
@@ -120,7 +120,7 @@
       };
       
       var onPause = function() {
-        playPauseBtn.text("p");
+        playPauseBtn.text("play");
       };
       
       var onStop = function() {
@@ -128,7 +128,7 @@
         trackTimeDisp.text("");
         trackTimeDisp.css("left", "0");
         trackBar.addClass("retract");
-        playPauseBtn.text("p");
+        playPauseBtn.text("play");
       };
       
       /* setup progress bar retract animation end handler */
