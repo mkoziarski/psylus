@@ -83,6 +83,48 @@
   <script src="js/soundmanager2-nodebug-jsmin.js"></script>
   <script src="http://connect.soundcloud.com/sdk.js"></script>
   <script>
+    var featureCheck = (function() {
+      var animation = (function() {
+        var elm = document.createElement("p");
+        
+        var animation = false,
+            animationstring = 'animation',
+            keyframeprefix = '',
+            domPrefixes = 'Webkit Moz O ms Khtml'.split(' '),
+            pfx  = '';
+        
+        if (elm.style.animationName !== undefined)
+          animation = true;
+        
+        if (animation === false) {
+          for (var i = 0; i < domPrefixes.length; i++) {
+            if (elm.style[domPrefixes[i] + 'AnimationName'] !== undefined) {
+              pfx = domPrefixes[i];
+              animationstring = pfx + 'Animation';
+              keyframeprefix = '-' + pfx.toLowerCase() + '-';
+              animation = true;
+              break;
+            }
+          }
+        }
+        
+        return {
+          available: animation,
+          propName: animationstring,
+          prefix: keyframeprefix
+        };
+      })();
+      
+      return {
+        animation: animation.available,
+        animationPropName: animation.propName,
+        animationPrefix: animation.prefix
+      };
+    })();
+    console.log('animation: "' + featureCheck.animation + '"');
+    console.log('animationPropName: "' + featureCheck.animationPropName + '"');
+    console.log('animationPrefix: "' + featureCheck.animationPrefix + '"');
+    
     var psylusPlayer = (function() {
       var trackBar = $("span.progress");
       var trackTimeDisp = $("span.trackTime");
