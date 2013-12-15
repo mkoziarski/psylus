@@ -128,6 +128,27 @@
       playPauseBtn: $("button#playPause")
     };
     
+    var animate = (function() {
+      var trackProgAnimStr = "retract-progbar 0.5s forwards";
+      
+      (function setUpPostRetractAnimationCleanup() {
+        domNodes.trackBar.get(0).addEventListener("animationend", function(event) {
+          if (event.animationName && "retract-progbar" == event.animationName) {
+            domNodes.trackBar.css("width", "0");
+            domNodes.trackBar.removeClass("retract");
+          }
+        }, false);
+      })();
+      
+      var trackStopped = function() {
+        domNodes.trackBar.addClass("retract");
+      };
+      
+      return {
+        trackStopped: trackStopped
+      };
+    })();
+    
     var psylusPlayer = (function() {
       var trackPosition = -1001;
       
@@ -164,19 +185,9 @@
         trackPosition = -1001;
         domNodes.trackTimeDisp.text("");
         domNodes.trackTimeDisp.css("left", "0");
-        domNodes.trackBar.addClass("retract");
+        animate.trackStopped();
         domNodes.playPauseBtn.text("play");
       };
-      
-      /* setup progress bar retract animation end handler */
-      (function() {
-        domNodes.trackBar.get(0).addEventListener("animationend", function(event) {
-          if (event.animationName && "retract-progbar" == event.animationName) {
-            domNodes.trackBar.css("width", "0");
-            domNodes.trackBar.removeClass("retract");
-          }
-        }, false);
-      })();
       
       /* UI event handling */
       domNodes.playPauseBtn.click(function() {
