@@ -122,11 +122,14 @@
       };
     })();
     
+    var domNodes = {
+      trackBar: $("span.progress"),
+      trackTimeDisp: $("span.trackTime"),
+      playPauseBtn: $("button#playPause")
+    };
+    
     var psylusPlayer = (function() {
-      var trackBar = $("span.progress");
-      var trackTimeDisp = $("span.trackTime");
       var trackPosition = -1001;
-      var playPauseBtn = $("button#playPause");
       
       var trackProgress = function(position, duration) {
         var totalSecs = Math.floor(position / 1000);
@@ -137,13 +140,13 @@
           seconds = "0" + seconds;
         if (minutes.length < 2)
           minutes = "0" + minutes;
-        trackTimeDisp.text(minutes + ":" + seconds);
-        trackTimeDisp.css("left", percentage + "%");
-        trackBar.css("width", percentage + "%");
+        domNodes.trackTimeDisp.text(minutes + ":" + seconds);
+        domNodes.trackTimeDisp.css("left", percentage + "%");
+        domNodes.trackBar.css("width", percentage + "%");
       };
       
       var onPlay = function() {
-        playPauseBtn.text("pause");
+        domNodes.playPauseBtn.text("pause");
       };
       
       var onPlayProgress = function(position, duration) {
@@ -154,29 +157,29 @@
       };
       
       var onPause = function() {
-        playPauseBtn.text("play");
+        domNodes.playPauseBtn.text("play");
       };
       
       var onStop = function() {
         trackPosition = -1001;
-        trackTimeDisp.text("");
-        trackTimeDisp.css("left", "0");
-        trackBar.addClass("retract");
-        playPauseBtn.text("play");
+        domNodes.trackTimeDisp.text("");
+        domNodes.trackTimeDisp.css("left", "0");
+        domNodes.trackBar.addClass("retract");
+        domNodes.playPauseBtn.text("play");
       };
       
       /* setup progress bar retract animation end handler */
       (function() {
-        trackBar.get(0).addEventListener("animationend", function(event) {
+        domNodes.trackBar.get(0).addEventListener("animationend", function(event) {
           if (event.animationName && "retract-progbar" == event.animationName) {
-            trackBar.css("width", "0");
-            trackBar.removeClass("retract");
+            domNodes.trackBar.css("width", "0");
+            domNodes.trackBar.removeClass("retract");
           }
         }, false);
       })();
       
       /* UI event handling */
-      playPauseBtn.click(function() {
+      domNodes.playPauseBtn.click(function() {
         soundProxy.onPlayButton();
       });
       
