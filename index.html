@@ -128,7 +128,7 @@
       playPauseBtn: $("button#playPause")
     };
     
-    var animate = (function() {
+    var cssAnimate = function() {
       var trackProgAnimStr = "retract-progbar 0.5s forwards";
       
       (function setUpPostRetractAnimationCleanup() {
@@ -140,6 +140,15 @@
         }, false);
       })();
       
+      (function setUpKeyframes() {
+        var len;
+        var progBarFrames = "@" + featureCheck.animationPrefix + "keyframes" +
+            " retract-progbar { to { width: 0%; } }";
+        if (document.styleSheets && (len = document.styleSheets.length)) {
+          document.styleSheets[len - 1].insertRule(progBarFrames, 0);
+        }
+      })();
+      
       var trackStopped = function() {
         domNodes.trackBar.addClass("retract");
       };
@@ -147,7 +156,24 @@
       return {
         trackStopped: trackStopped
       };
-    })();
+    };
+    
+    var fallbackAnimate = function() {
+      var trackStopped = function() {
+        domNodes.trackBar.css("width", "0");
+      };
+      
+      return {
+        trackStopped: trackStopped
+      };
+    };
+    
+    var animate;
+    if (featureCheck.animation) {
+      animate = cssAnimate();
+    } else {
+      animate = fallbackAnimate();
+    }
     
     var psylusPlayer = (function() {
       var trackPosition = -1001;
