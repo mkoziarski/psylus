@@ -146,7 +146,7 @@
             featureCheck.animationEnd, function(event) {
           if (event.animationName && "retract-progbar" == event.animationName) {
             domNodes.trackBar.css("width", "0");
-            domNodes.trackBar.removeClass("retract");
+            domNodes.trackBar.get(0).style[featureCheck.animationPropName] = "";
           }
         }, false);
       })();
@@ -161,7 +161,8 @@
       })();
       
       var trackStopped = function() {
-        domNodes.trackBar.addClass("retract");
+        domNodes.trackBar.get(0).style[featureCheck.animationPropName] =
+            trackProgAnimStr;
       };
       
       return {

@@ -98,18 +98,6 @@ div.track span.progress {
   background: rgb(35, 181, 116);
 }
 
-div.track span.progress.retract {
-  animation-duration: 0.5s;
-  animation-name: retract-progbar;
-  animation-fill-mode: forwards;
-}
-
-@keyframes retract-progbar {
-  to {
-    width: 0%;
-  }
-}
-
 div.track span.trackTime {
   display: block;
   position: absolute;
