@@ -86,6 +86,14 @@
     var featureCheck = (function() {
       var animation = (function() {
         var elm = document.createElement("p");
+        var animationEnd = {
+          "": "animationend",
+          "-moz-": "animationend",
+          "-khtml-": "animationend",
+          "-webkit-": "webkitAnimationEnd",
+          "-o-": "animationend",
+          "-ms-": "animationend"
+        };
         
         var animation = false,
             animationstring = 'animation',
@@ -111,14 +119,16 @@
         return {
           available: animation,
           propName: animationstring,
-          prefix: keyframeprefix
+          prefix: keyframeprefix,
+          animationEnd: animationEnd[keyframeprefix]
         };
       })();
       
       return {
         animation: animation.available,
         animationPropName: animation.propName,
-        animationPrefix: animation.prefix
+        animationPrefix: animation.prefix,
+        animationEnd: animation.animationEnd
       };
     })();
     
@@ -132,7 +142,8 @@
       var trackProgAnimStr = "retract-progbar 0.5s forwards";
       
       (function setUpPostRetractAnimationCleanup() {
-        domNodes.trackBar.get(0).addEventListener("animationend", function(event) {
+        domNodes.trackBar.get(0).addEventListener(
+            featureCheck.animationEnd, function(event) {
           if (event.animationName && "retract-progbar" == event.animationName) {
             domNodes.trackBar.css("width", "0");
             domNodes.trackBar.removeClass("retract");
